@@ -1,44 +1,74 @@
 <?php
+require_once dirname(__FILE__)."/../config.php";
+
+
 class BaseDao{
+
+
+protected $connection;
 
 public function _construct(){
 
-  $servername = "localhost";
-  $username = "root";
-  $password = "root123";
-
   try {
-    $conn = new PDO("mysql:host=$servername;dbname=onlineshop", $username, $password);
-    // set the PDO error mode to exception
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connected successfully";
+
+    $this->connection = new PDO("mysql:host=".Config::DB_HOST.";dbname=".Config::DB_SCHEME, Config::DB_USERNAME, Config::DB_PASSWORD);
+
+    $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $this->connection->setAttribute(PDO::ATTR_AUTOCOMMIT, 0);
   } catch(PDOException $e) {
-    echo "Connection failed: " . $e->getMessage();
+
+    throw $e;
+
   }
+}
+
+protected function insert($table, $entity){
+  $query = "INSERT INTO ${table} (";
+  foreach ($entity as $column => $value) {
+    $query .= $column.", ";
+  }
+  $query = substr($query, 0, -2);
+  $query .= ") VALUES (";
+  foreach ($entity as $column => $value) {
+    $query .= ":".$column.", ";
+  }
+  $query = substr($query, 0, -2);
+  $query .= ")";
+
+  $stmt= $this->connection->prepare($query);
+  $stmt->execute($entity); // sql injection prevention
+  $entity['id'] = $this->connection->lastInsertId();
+  return $entity;
+}
+
+protected function update($table, $id, $entity, $id_column = "id"){
+  $query = "UPDATE ${table} SET ";
+  foreach($entity as $name => $value){
+    $query .= $name ."= :". $name. ", ";
+  }
+  $query = substr($query, 0, -2);
+  $query .= " WHERE {$id_column} = :id";
+  $entity['id'] = $id;
+  $stmt= $this->connection->prepare($query);
+  $stmt->execute($entity);
+}
+
+
+protected function query($query, $params){
+  $stmt = $this->connection->prepare($query);
+  $stmt->execute($params);
+  return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+protected function query_unique($query, $params){
+  $results = $this->query($query,$params);
+  return reset($results);
+}
+
+
 
 
 
 }
-
-public function insert(){
-
-}
-
-public function update(){
-
-}
-
-public function query(){
-
-}
-
-public function query_unique(){
-
-}
-
-
-
-
-
-}
- ?>
+?>

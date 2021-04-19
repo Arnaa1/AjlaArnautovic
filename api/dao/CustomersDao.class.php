@@ -1,11 +1,36 @@
 <?php
 
+require_once dirname(__FILE__)."/BaseDao.class.php";
+
 class CustomersDao extends BaseDao{
 
-  public function get_user_by_email($email){
+private $table="customer";
 
-
+  public function get_customer_by_id($id){
+    return $this->query_unique("SELECT * FROM customers, WHERE id=:id", ["id"=>$id]);
   }
+
+  public function get_customer_by_email($email){
+    return $this->query_unique("SELECT * FROM customers, WHERE email=:email", ["email"=>$email]);
+  }
+
+  public function get_all_customers(){
+    return $this->query ("SELECT * FROM customers", []);
+  }
+
+
+public function add_customer($entity){
+return $this->insert($this->table, $entity);
+}
+
+public function update_customer($id, $customer){
+  $this->update("customer", $id, $customer, "id");
+}
+
+public function update_customer_by_email($email, $customer){
+  $this->update("customer", $email, $customer, "email");
+}
+
 }
 
  ?>

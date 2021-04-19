@@ -1,6 +1,6 @@
 {
-    "name": "ibu/ajla_arnautovic",
-    "description": "Auto responder system for intro2web course",
+    "name": "ibu/AjlaArnautovic",
+    "description": "Web project 2021",
     "license": "Apache2",
     "authors": [
         {
@@ -8,5 +8,7 @@
             "email": "ajla.arnautovic@socialexplorer.com"
         }
     ],
-    "require": {}
+    "require": {
+        "mikecao/flight": "^1.3"
+    }
 }
