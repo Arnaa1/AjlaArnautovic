@@ -18,7 +18,7 @@ public function _construct(){
     $this->connection->setAttribute(PDO::ATTR_AUTOCOMMIT, 0);
   } catch(PDOException $e) {
 
-    throw $e;
+    echo "Connection failed: " . $e->getMessage();
 
   }
 }

@@ -19,17 +19,17 @@ private $table="customer";
   }
 
 
-public function add_customer($entity){
-return $this->insert($this->table, $entity);
-}
+  public function add_customer($entity){
+  return $this->insert($this->table, $entity);
+  }
 
-public function update_customer($id, $customer){
-  $this->update("customer", $id, $customer, "id");
-}
+  public function update_customer($id, $customer){
+    $this->update("customer", $id, $customer, "id");
+  }
 
-public function update_customer_by_email($email, $customer){
-  $this->update("customer", $email, $customer, "email");
-}
+  public function update_customer_by_email($email, $customer){
+    $this->update("customer", $email, $customer, "email");
+  }
 
 }
 
