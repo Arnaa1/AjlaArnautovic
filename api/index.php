@@ -9,6 +9,8 @@ require_once dirname(__FILE__) . '/routes/users.php';
 require_once dirname(__FILE__) . '/routes/products.php';
 require_once dirname(__FILE__) . '/routes/orders.php';
 require_once dirname(__FILE__) . '/routes/cart.php';
+require_once dirname(__FILE__) . '/routes/faq.php';
+
 
 
 
@@ -17,6 +19,8 @@ require_once dirname(__FILE__) . '/services/UserService.class.php';
 require_once dirname(__FILE__) . '/services/OrderService.class.php';
 require_once dirname(__FILE__) . '/services/ProductService.class.php';
 require_once dirname(__FILE__) . '/services/CartService.class.php';
+require_once dirname(__FILE__) . '/services/FaqService.class.php';
+
 
 
 
@@ -25,6 +29,8 @@ Flight::register('userService', 'UserService');
 Flight::register('productService', 'ProductService');
 Flight::register('orderService', 'OrderService');
 Flight::register('cartService', 'CartService');
+Flight::register('faqService', 'FaqService');
+
 
 
 
