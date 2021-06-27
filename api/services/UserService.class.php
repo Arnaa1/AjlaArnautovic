@@ -1,6 +1,6 @@
 <?php
 require_once dirname(__FILE__).'/BaseService.class.php';
-require_once dirname(__FILE__).'/../dao/UserDao.class.php';
+require_once dirname(__FILE__).'/../dao/UsersDao.class.php';
 
 
 class UserService extends BaseService
@@ -15,7 +15,7 @@ class UserService extends BaseService
         if ($search) {
             return $this->dao->get_users($search, $offset, $limit, $order);
         } else {
-            return $this->dao->get_all_users($offset, $limit, $order);
+            return $this->dao->get_all_records($offset, $limit, $order);
         }
     }
     

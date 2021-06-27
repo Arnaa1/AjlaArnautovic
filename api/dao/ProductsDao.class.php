@@ -1,6 +1,6 @@
 <?php
 
-class ProductsDao extends BaseDao
+class ProductDao extends BaseDao
 {
     private $table="product";
 

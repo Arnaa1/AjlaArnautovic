@@ -1,7 +1,7 @@
 <?php
 require_once dirname(__FILE__)."/BaseDao.class.php";
 
-class CartDao extends BaseDao
+class CartsDao extends BaseDao
 {
     public function get_cart_by_id($id)
     {

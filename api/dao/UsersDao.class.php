@@ -2,39 +2,39 @@
 
 require_once dirname(__FILE__)."/BaseDao.class.php";
 
-class CustomersDao extends BaseDao
+class UserDao extends BaseDao
 {
-    private $table="customer";
+    protected $table="users";
 
     public function get_customer_by_id($id)
     {
-        return $this->query_unique("SELECT * FROM customers, WHERE id=:id", ["id"=>$id]);
+        return $this->query_unique("SELECT * FROM users, WHERE id=:id", ["id"=>$id]);
     }
 
     public function get_customer_by_email($email)
     {
-        return $this->query_unique("SELECT * FROM customers, WHERE email=:email", ["email"=>$email]);
+        return $this->query_unique("SELECT * FROM users, WHERE email=:email", ["email"=>$email]);
     }
 
-    public function get_all_customers()
+    public function get_all_users()
     {
-        return $this->query("SELECT * FROM customers", []);
+        return $this->query("SELECT * FROM users", []);
     }
 
 
-    public function add_customer($entity)
+    public function add_users($entity)
     {
         return $this->insert($this->table, $entity);
     }
 
     public function update_customer($id, $customer)
     {
-        $this->update("customer", $id, $customer, "id");
+        $this->update("users", $id, $customer, "id");
     }
 
-    public function update_customer_by_email($email, $customer)
+    public function update_users_by_email($email, $customer)
     {
-        $this->update("customer", $email, $customer, "email");
+        $this->update("users", $email, $customer, "email");
     }
 
     public function get_users($search, $offset, $limit, $order = "-id")
@@ -46,5 +46,11 @@ class CustomersDao extends BaseDao
                        WHERE LOWER(name) LIKE CONCAT('%', :name, '%')
 
                        LIMIT ${limit} OFFSET ${offset} ", ["name" => strtolower($search)]);
+    }
+
+
+    public function get_all_records($offset = 0, $limit = 25)
+    {
+        return $this->get_all($offset, $limit);
     }
 }

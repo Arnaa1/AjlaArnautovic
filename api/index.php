@@ -3,21 +3,21 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-require_once dirname(_FILE_) . '/../vendor/autoload.php';
+require_once dirname(__FILE__) . '/../vendor/autoload.php';
 
-require_once dirname(_FILE_) . '/routes/users.php';
-require_once dirname(_FILE_) . '/routes/products.php';
-require_once dirname(_FILE_) . '/routes/orders.php';
-require_once dirname(_FILE_) . '/routes/cart.php';
-require_once dirname(_FILE_) . '/routes/users.php';
-
+require_once dirname(__FILE__) . '/routes/users.php';
+require_once dirname(__FILE__) . '/routes/products.php';
+require_once dirname(__FILE__) . '/routes/orders.php';
+require_once dirname(__FILE__) . '/routes/cart.php';
 
 
-require_once dirname(_FILE_) . '/services/UserService.class.php';
-require_once dirname(_FILE_) . '/services/OrderService.class.php';
-require_once dirname(_FILE_) . '/services/ProductService.class.php';
-require_once dirname(_FILE_) . '/services/CartService.class.php';
-require_once dirname(_FILE_) . '/services/UserService.class.php';
+
+
+require_once dirname(__FILE__) . '/services/UserService.class.php';
+require_once dirname(__FILE__) . '/services/OrderService.class.php';
+require_once dirname(__FILE__) . '/services/ProductService.class.php';
+require_once dirname(__FILE__) . '/services/CartService.class.php';
+
 
 
 
@@ -25,7 +25,7 @@ Flight::register('userService', 'UserService');
 Flight::register('productService', 'ProductService');
 Flight::register('orderService', 'OrderService');
 Flight::register('cartService', 'CartService');
-Flight::register('userService', 'UserService');
+
 
 
 
