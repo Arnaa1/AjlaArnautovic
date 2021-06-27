@@ -1,13 +1,14 @@
 <?php
 require_once dirname(__FILE__).'/BaseService.class.php';
 require_once dirname(__FILE__).'/../dao/UsersDao.class.php';
+require_once dirname(__FILE__).'/../dao/BaseDao.class.php';
 
 
 class UserService extends BaseService
 {
     public function __construct()
     {
-        $this->dao = new UserDao();
+        $this->dao = new UsersDao();
     }
 
     public function get_users($search, $offset, $limit, $order)
@@ -20,11 +21,11 @@ class UserService extends BaseService
     }
     
 
-    public function add_user($user)
+    public function add_users($users)
     {
-        if (!isset($user['name'])) {
+        if (!isset($users['name'])) {
             throw new Exception('Name is missing', 400);
         }
-        return parent::add_user($user);
+        return parent::add_users($users);
     }
 }

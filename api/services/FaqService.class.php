@@ -17,4 +17,12 @@ class FaqService extends BaseService
             return $this->dao->get_all_faqs($offset, $limit, $order);
         }
     }
+    public function add_faqs($faqs)
+    {
+        if (!isset($faqs['body'])) {
+            throw new Exception('Body is missing');
+        }
+
+        return parent::add_faqs($faqs);
+    }
 }

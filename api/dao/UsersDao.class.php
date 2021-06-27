@@ -2,16 +2,16 @@
 
 require_once dirname(__FILE__)."/BaseDao.class.php";
 
-class UserDao extends BaseDao
+class UsersDao extends BaseDao
 {
     protected $table="users";
 
-    public function get_customer_by_id($id)
+    public function get_users_by_id($id)
     {
         return $this->query_unique("SELECT * FROM users, WHERE id=:id", ["id"=>$id]);
     }
 
-    public function get_customer_by_email($email)
+    public function get_users_by_email($email)
     {
         return $this->query_unique("SELECT * FROM users, WHERE email=:email", ["email"=>$email]);
     }
@@ -27,14 +27,14 @@ class UserDao extends BaseDao
         return $this->insert($this->table, $entity);
     }
 
-    public function update_customer($id, $customer)
+    public function update_users($id, $users)
     {
-        $this->update("users", $id, $customer, "id");
+        $this->update("users", $id, $users, "id");
     }
 
-    public function update_users_by_email($email, $customer)
+    public function update_users_by_email($email, $users)
     {
-        $this->update("users", $email, $customer, "email");
+        $this->update("users", $email, $users, "email");
     }
 
     public function get_users($search, $offset, $limit, $order = "-id")

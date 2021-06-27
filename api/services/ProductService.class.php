@@ -25,6 +25,6 @@ class ProductService extends BaseService
             throw new Exception('Name is missing');
         }
 
-        return parent::add_product($products);
+        return parent::add_products($products);
     }
 }
