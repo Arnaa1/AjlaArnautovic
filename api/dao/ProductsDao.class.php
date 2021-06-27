@@ -2,7 +2,7 @@
 
 class ProductDao extends BaseDao
 {
-    private $table="product";
+    private $table="products";
 
     public function get_products_by_id($id)
     {
@@ -25,7 +25,7 @@ class ProductDao extends BaseDao
         return $this->insert($this->table, $entity);
     }
 
-    public function update_product($id, $products)
+    public function update_products($id, $products)
     {
         $this->update("products", $id, $products, "id");
     }

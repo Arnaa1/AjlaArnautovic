@@ -47,10 +47,4 @@ class UserDao extends BaseDao
 
                        LIMIT ${limit} OFFSET ${offset} ", ["name" => strtolower($search)]);
     }
-
-
-    public function get_all_records($offset = 0, $limit = 25)
-    {
-        return $this->get_all($offset, $limit);
-    }
 }

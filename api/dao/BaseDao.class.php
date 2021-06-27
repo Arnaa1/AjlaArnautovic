@@ -1,23 +1,24 @@
 <?php
+
 require_once dirname(__FILE__)."/../config.php";
+
 
 
 class BaseDao
 {
     protected $connection;
 
-    public function _construct()
+    public function __construct()
     {
         try {
             $this->connection = new PDO("mysql:host=".Config::DB_HOST.";dbname=".Config::DB_SCHEME, Config::DB_USERNAME, Config::DB_PASSWORD);
-
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            $this->connection->setAttribute(PDO::ATTR_AUTOCOMMIT, 0);
+            $this->connection->setAttribute(PDO::ATTR_AUTOCOMMIT, 1);
         } catch (PDOException $e) {
-            echo "Connection failed: " . $e->getMessage();
+            throw $e;
         }
     }
+  
 
     protected function insert($table, $entity)
     {
@@ -52,7 +53,6 @@ class BaseDao
         $stmt->execute($entity);
     }
 
-
     protected function query($query, $params)
     {
         $stmt = $this->connection->prepare($query);
@@ -69,23 +69,12 @@ class BaseDao
     public static function parse_order($order)
     {
         switch (substr($order, 0, 1)) {
-            case '-': $order_direction="ASC"; break;
-            case '+': $order_direction="DESC"; break;
-            default: throw new Exception("Invalid order format"); break;
-        };
-
-        $order_column = substr($order, 1);
-
+    case '-': $order_direction = "ASC"; break;
+    case '+': $order_direction = "DESC"; break;
+    default: throw new Exception("Invalid order format. First character should be either + or -"); break;
+    // $this->connection->quote
+  }
+        $order_column =substr($order, 1);
         return [$order_column, $order_direction];
-    }
-
-
-    public function get_all($offset=0, $limit=25, $order="-id")
-    {
-        // we create list of two elements, then unwind it and select them
-        list($order_column, $order_direction) = self::parse_order($order);
-        
-        return $this->query("SELECT * FROM ".$this->table." ORDER BY ${order_column} ${order_direction}
-                             LIMIT ${limit} OFFSET ${offset}", []);
     }
 }

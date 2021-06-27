@@ -6,7 +6,7 @@ class OrderService extends BaseService
 {
     public function __construct()
     {
-        $this->dao = new OrderDao();
+        $this->dao = new OrdersDao();
     }
 
     public function get_orders($search, $offset, $limit, $order)
